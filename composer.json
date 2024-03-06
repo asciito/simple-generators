@@ -1,0 +1,30 @@
+{
+  "name": "asciito/simple-generators",
+  "description": "A very simple package to handle text and image generation from AI tools",
+  "license": "MIT",
+  "type": "package",
+  "authors": [
+    {
+      "name": "Ayax Córdova",
+      "email": "ayax.cordova@aydev.com",
+      "homepage": "https://aydev.mx"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "pestphp/pest": "^v2.34.1",
+    "pestphp/pest-plugin-laravel": "^v2.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Asciito\\SimpleGenerators\\": "src/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "version": "v0.0.1"
+}
