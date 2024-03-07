@@ -4,7 +4,7 @@ A very simple package to handle text and image generation from AI tools
 
 ---
 
-![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-blue.svg)
+![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-blue.svg)
 ![MIT License Badge](https://img.shields.io/badge/license-MIT-blue)
 ![version](https://img.shields.io/badge/version-v0.1.0-blue)
 
@@ -17,7 +17,7 @@ image, based on a text prompt, utilizing various AI providers.
 
 ## Get Started
 
-> Requires [PHP 8.1+](https://www.php.net/releases/)
+> Requires [PHP 8.2+](https://www.php.net/releases/)
 
 First, install simple-generators via [Composer](https://getcomposer.org/):
 
