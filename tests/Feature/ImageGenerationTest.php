@@ -17,7 +17,7 @@ it('generate text from a fake client', function () {
     expect($url)
         ->toBeString()
         ->not->toBeEmpty()
-        ->toMatch('/^(https|http):\/\/[^" ]+$/');
+        ->toBeUrl();
 });
 
 test('AI client not found')
