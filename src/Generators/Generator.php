@@ -8,7 +8,9 @@ use Asciito\SimpleGenerators\Clients\Exceptions\ClientNotFoundException;
 
 abstract class Generator
 {
-    protected static array $clients = [];
+    protected static array $clients = [
+        'open-ai' => \Asciito\SimpleGenerators\Clients\OpenAI\Client::class,
+    ];
 
     public function __construct(protected Client $client)
     {
