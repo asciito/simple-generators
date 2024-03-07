@@ -36,7 +36,7 @@ abstract class Generator
 
         $instance = static::$clients[$client];
 
-        return new $instance($options, $options);
+        return new $instance($options);
     }
 
     /**
