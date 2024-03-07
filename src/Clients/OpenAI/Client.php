@@ -40,7 +40,7 @@ class Client implements ClientContract
             'messages' => [
                 [
                     'role' => 'user',
-                    'text' => $prompt,
+                    'content' => $prompt,
                 ]
             ]
         ]);
