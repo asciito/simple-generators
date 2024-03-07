@@ -6,7 +6,7 @@ A very simple package to handle text and image generation from AI tools
 
 ![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-blue.svg)
 ![MIT License Badge](https://img.shields.io/badge/license-MIT-blue)
-![version](https://img.shields.io/badge/version-v0.0.1-blue)
+![version](https://img.shields.io/badge/version-v0.1.0-blue)
 
 ## Description
 
