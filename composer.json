@@ -10,20 +10,31 @@
       "homepage": "https://aydev.mx"
     }
   ],
-  "require": {},
+  "require": {
+    "illuminate/collections": "^10.47",
+    "nyholm/psr7": "^1.8",
+    "openai-php/client": "^0.8.4",
+    "symfony/http-client": "^7.0"
+  },
   "require-dev": {
-    "pestphp/pest": "^v2.34.1",
-    "pestphp/pest-plugin-laravel": "^v2.1.0"
+    "laravel/pint": "^1.14",
+    "pestphp/pest": "^v2.34.1"
   },
   "autoload": {
     "psr-4": {
       "Asciito\\SimpleGenerators\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Asciito\\Tests\\": "tests/"
+    }
+  },
   "config": {
     "sort-packages": true,
     "allow-plugins": {
-      "pestphp/pest-plugin": true
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true
     }
   },
   "version": "v0.0.1"
