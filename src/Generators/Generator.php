@@ -19,16 +19,16 @@ abstract class Generator
 
     abstract public function prompt(string $text): string;
 
-    public static function make(string $clientName, ?Client $client = null): static
+    public static function make(string $clientName, array $options = [], ?Client $client = null): static
     {
         if (is_null($client)) {
-            $client = static::resolveClient($clientName);
+            $client = static::resolveClient($clientName, $options);
         }
 
         return new static($client);
     }
 
-    public static function resolveClient(string $client): Client
+    public static function resolveClient(string $client, array $options): Client
     {
         if (is_null(static::$clients[$client] ?? null)) {
             throw ClientNotFoundException::make($client);
@@ -36,7 +36,7 @@ abstract class Generator
 
         $instance = static::$clients[$client];
 
-        return new $instance();
+        return new $instance($options, $options);
     }
 
     /**

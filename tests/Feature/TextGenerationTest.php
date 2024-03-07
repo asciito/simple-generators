@@ -10,7 +10,7 @@ it('generate text from a fake client', function () {
         ],
     ]);
 
-    $generator = TextGenerator::make('fake', $client);
+    $generator = TextGenerator::make('fake', client: $client);
 
     $text = $generator->prompt('Give me a motivational phrase');
 
@@ -31,7 +31,7 @@ test('AI client throws an exception', function () {
         ],
     ]);
 
-    $generator = TextGenerator::make('throwable', $client);
+    $generator = TextGenerator::make('throwable', client: $client);
 
     $generator->prompt('This is just a fake prompt');
 })->throws('This is a custom exception');
