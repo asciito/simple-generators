@@ -6,7 +6,7 @@ A very simple package to handle text and image generation from AI tools
 
 ![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-blue.svg)
 ![MIT License Badge](https://img.shields.io/badge/license-MIT-blue)
-![version](https://img.shields.io/badge/version-v0.2.0-blue)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/asciito/simple-generators.svg?style=flat-square)](https://packagist.org/packages/yourusername/yourpackagename)
 ![PEST Testing](https://github.com/asciito/simple-generators/actions/workflows/test.yml/badge.svg)
 
 ## Description
