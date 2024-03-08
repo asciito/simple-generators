@@ -17,7 +17,7 @@ class ClientFake implements ClientContract
     }
 
     #[\Override]
-    public function generateImageFromPrompt(string $prompt): string
+    public function generateImageFromPrompt(string $prompt, string $size = null): string
     {
         if (empty($this->imageResponses)) {
             return $this->imageDefaultResponse;
