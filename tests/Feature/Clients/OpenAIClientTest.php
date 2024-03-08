@@ -51,7 +51,6 @@ it('generate an image with Open AI', function () {
 });
 
 test('invalid image size', function () {
-
     $openAI = new Client(clientResolver: fn () => new OpenAI\Testing\ClientFake());
 
     $openAI->generateImageFromPrompt('Draw me a horse drinking a coffee, in front of a fondita in Oaxaca', '1920-w');
