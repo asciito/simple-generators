@@ -91,7 +91,7 @@ interface Client
 
     public function generateImageFromPrompt(string $prompt): string;
 
-    public function generateTextFromPrompt(string $prompt): string;
+    public function generateTextFromPrompt(string $prompt, string $size = null): string;
 
     public function getOption(string $key, mixed $value = null): mixed;
 }
@@ -101,10 +101,13 @@ interface Client
 The `__construct` method accepts a key-value array with the options that your client might use at some
 point; the implementation is up to you.
 
-#### Method `generateImageFromPrompt(string $prompt)`
+#### Method `generateImageFromPrompt(string $prompt, string $size = null)`
 The `generateImageFromPrompt` method accepts a string which is the text prompt you should use to
 make the request to your AI provider. However, you should ultimately return a string that represents
-the response from your provider.
+the response from your provider. Optionally, you can specify the size of the image you want to request,
+and if the size specified by the string is not available, you should throw an
+`\Asciito\SimpleGenerators\Clients\Exceptions\InvalidImageSize` exception. The way the $size
+`string` is, is **up to ddyou**.
 
 #### Method `generateTextFromPrompt(string $prompt)`
 The `generateTextFromPrompt` method accepts a string which is the text prompt that would be used to
