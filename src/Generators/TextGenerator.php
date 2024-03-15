@@ -16,6 +16,9 @@ class TextGenerator implements Generator, Fake
 
     protected ClientContract $client;
 
+    /**
+     * @inheritDoc
+     */
     public function __construct(protected array $options)
     {
         $this->client = OpenAI::client($this->options['api']);
