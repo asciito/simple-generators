@@ -13,6 +13,15 @@ class OpenAI implements Client
     protected OpenAIClient $client;
 
     /**
+     * @var array<string, string>
+     */
+    protected array $availableSizes = [
+        '1024-w' => '1024x1024',
+        '1024-h' => '1024x1792',
+        '1791-w' => '1792x1024',
+    ];
+
+    /**
      * @inheritDoc
      */
     public function __construct(array $options)
@@ -47,10 +56,19 @@ class OpenAI implements Client
             'model' => 'dall-e-3',
             'prompt' => $prompt,
             'quality' => 'hd',
-            'size' => $size,
+            'size' => $this->getSize($size),
         ]);
 
         return $response->data[0]->url;
+    }
+
+    /**
+     * @param string|null $size
+     * @return string
+     */
+    protected function getSize(string $size = null): string
+    {
+        return $this->availableSizes[$size] ?? $this->availableSizes['1024-w'];
     }
 
     /**
