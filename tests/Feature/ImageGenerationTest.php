@@ -1,37 +1,32 @@
 <?php
 
-use Asciito\SimpleGenerators\Clients\ClientFakeException;
+declare(strict_types=1);
+
 use Asciito\SimpleGenerators\Generators\ImageGenerator;
 
-it('generate text from a fake client', function () {
-    $client = ImageGenerator::fakeClient([
-        'image' => [
-            'https://fake.pictures/1366x768',
-        ],
-    ]);
+beforeEach(fn () => \Asciito\SimpleGenerators\Factory::flushFakeGenerator());
 
-    $generator = ImageGenerator::make('fake', client: $client);
+it('generate an image', function () {
+    \Asciito\SimpleGenerators\Factory::fake(
+        ImageGenerator::fake([
+            'https://fake-ai-provider.com/this-is-a-fake-url',
+        ]),
+    );
 
-    $url = $generator->prompt('Give me a motivational phrase');
-
-    expect($url)
-        ->toBeString()
-        ->not->toBeEmpty()
-        ->toBeUrl();
+    expect('Draw me an ant waling in the desert')
+        ->generateImage();
 });
 
-test('AI client not found')
-    ->expect(fn () => ImageGenerator::make('unknown'))
-    ->throws('The client [unknown] does not exists');
+it('generate a couple of images', function () {
+    \Asciito\SimpleGenerators\Factory::fake(
+        ImageGenerator::fake([
+            'https://fake-ai-provider.com/this-is-a-fake-url',
+            'https://fake-ai-provider.com/this-is-another-fake-url',
+        ])
+    );
 
-test('AI client throws an exception', function () {
-    $client = ImageGenerator::fakeClient([
-        'image' => [
-            ClientFakeException::make('fake', 'This is a custom exception'),
-        ],
-    ]);
-
-    $generator = ImageGenerator::make('throwable', client: $client);
-
-    $generator->prompt('You should give me a fake image');
-})->throws('This is a custom exception');
+    expect('Draw me a cat in space')
+        ->generateImage()
+    ->and('Draw me a bunch of dogs playing card, smocking and drinking')
+        ->generateImage();
+});

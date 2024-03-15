@@ -1,57 +1,45 @@
 <?php
 
-
-use Asciito\SimpleGenerators\Clients\OpenAI\Client;
-use OpenAI\Responses\Chat\CreateResponse as ChatResponse;
-use OpenAI\Responses\Images\CreateResponse as ImagesResponse;
-
-it('generate text with Open AI', function () {
-    $client = new OpenAI\Testing\ClientFake([
-            ChatResponse::fake([
-                'choices' => [[
-                    'message' => [
-                        'content' => 'Keep moving forward',
-                    ]
-                ]]
-            ]),
-        ]);
-
-    $openAI = new Client(clientResolver: fn () => $client);
-
-    $text = $openAI->generateTextFromPrompt('Give me a motivational phrase');
-
-    $client->assertSent(\OpenAI\Resources\Chat::class, 1);
-
-    expect($text)
-        ->toBeString()
-        ->not->toBeEmpty()
-        ->toBe('Keep moving forward');
-});
-
-
-it('generate an image with Open AI', function () {
-    $client = new OpenAI\Testing\ClientFake([
-        ImagesResponse::fake([
-            'data' => [[
-                'url' => 'https://openai-fake-image.com/1000x1000/bHkVhpLZvOqnyfjSwvjzb67Bsmt47xDCwppAymwGHXrETdk4XWMFo4qQmA0GXaaz'
+test('text generation', function () {
+    $fake = new \OpenAI\Testing\ClientFake([
+        \OpenAI\Responses\Chat\CreateResponse::fake([
+            'choices' => [[
+                'message' => [
+                    'content' => 'This is a fake song...',
+                ]
             ]]
         ]),
     ]);
 
-    $openAI = new Client(clientResolver: fn () => $client);
+    $client = new \Asciito\SimpleGenerators\Providers\OpenAI(['api' => 'this-is-a-fake-api-key']);
 
-    $url = $openAI->generateImageFromPrompt('Give me a motivational phrase');
+    $client->setClient($fake);
 
-    $client->assertSent(\OpenAI\Resources\Images::class, 1);
+    $text = $client->generateText('Write a song');
+
+    expect($text)
+        ->toBeString()
+        ->not()->toBeEmpty()
+        ->toBe('This is a fake song...');
+});
+
+test('image generation', function () {
+    $fake = new \OpenAI\Testing\ClientFake([
+        \OpenAI\Responses\Images\CreateResponse::fake([
+            'data' => [[
+                'url' => 'https://fake-open-ai.com/this-is-a-fake-url-from-open-ai',
+            ]],
+        ]),
+    ]);
+
+    $client = new \Asciito\SimpleGenerators\Providers\OpenAI(['api' => 'this-is-a-fake-api-key']);
+
+    $client->setClient($fake);
+
+    $url = $client->generateImage('Draw a dog running a marathon in space');
 
     expect($url)
         ->toBeString()
-        ->not->toBeEmpty()
+        ->not()->toBeEmpty()
         ->toBeUrl();
 });
-
-test('invalid image size', function () {
-    $openAI = new Client(clientResolver: fn () => new OpenAI\Testing\ClientFake());
-
-    $openAI->generateImageFromPrompt('Draw me a horse drinking a coffee, in front of a fondita in Oaxaca', '1920-w');
-})->throws(\Asciito\SimpleGenerators\Clients\Exceptions\InvalidImageSize::class);
