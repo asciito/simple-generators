@@ -7,18 +7,38 @@ namespace Asciito\SimpleGenerators\Generators;
 use Asciito\SimpleGenerators\Generators\Concerns\Fakeable;
 use Asciito\SimpleGenerators\Generators\Contracts\Fake;
 use Asciito\SimpleGenerators\Generators\Contracts\Generator;
+use OpenAI;
+use OpenAI\Contracts\ClientContract;
 
 class ImageGenerator implements Generator, Fake
 {
     use Fakeable;
 
+    protected ClientContract $client;
+
+    /**
+     * @inheritDoc
+     */
     public function __construct(protected array $options)
     {
-        //
+        $this->client = OpenAI::client($this->options['api']);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function prompt(string $text): string
     {
-        // TODO: Implement prompt() method.
+        $response = $this->client->chat()->create([
+            "model" => "gpt-4-turbo-preview",
+            "messages" => [
+                [
+                    "role" => "user",
+                    "content" => $text,
+                ],
+            ]
+        ]);
+
+        return $response->choices[0]->message->content;
     }
 }
