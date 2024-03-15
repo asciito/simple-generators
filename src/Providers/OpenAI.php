@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asciito\SimpleGenerators\Providers;
 
 use Asciito\SimpleGenerators\Providers\Contracts\Client;
+use OpenAI\Contracts\ClientContract;
 use OpenAI\Contracts\ClientContract as OpenAIClient;
 
 class OpenAI implements Client
@@ -50,5 +51,17 @@ class OpenAI implements Client
         ]);
 
         return $response->data[0]->url;
+    }
+
+    /**
+     * Sets the client for the object.
+     *
+     * @param ClientContract $client
+     *
+     * @return void
+     */
+    public function setClient(ClientContract $client): void
+    {
+        $this->client = $client;
     }
 }
