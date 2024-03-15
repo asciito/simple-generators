@@ -1,37 +1,32 @@
 <?php
 
-use Asciito\SimpleGenerators\Clients\ClientFakeException;
+declare(strict_types=1);
+
 use Asciito\SimpleGenerators\Generators\TextGenerator;
 
-it('generate text from a fake client', function () {
-    $client = TextGenerator::fakeClient([
-        'text' => [
-            'Keep moving forward!',
-        ],
-    ]);
+beforeEach(fn () => \Asciito\SimpleGenerators\Factory::flushFakeGenerator());
 
-    $generator = TextGenerator::make('fake', client: $client);
+it('generate a simple text', function () {
+    \Asciito\SimpleGenerators\Factory::fake(
+        TextGenerator::fake([
+            'This is a short story',
+        ]),
+    );
 
-    $text = $generator->prompt('Give me a motivational phrase');
-
-    expect($text)
-        ->toBeString()
-        ->not->toBeEmpty()
-        ->toBe('Keep moving forward!');
+    expect('Tell me a short story')
+        ->generateTextEqual('This is a short story');
 });
 
-test('AI client not found')
-    ->expect(fn () => TextGenerator::make('unknown'))
-    ->throws('The client [unknown] does not exists');
+it('generate a couple of text', function () {
+    \Asciito\SimpleGenerators\Factory::fake(
+        TextGenerator::fake([
+            "I'm a fake AI provider",
+            'The earth is 4.543 billion years',
+        ])
+    );
 
-test('AI client throws an exception', function () {
-    $client = TextGenerator::fakeClient([
-        'text' => [
-            ClientFakeException::make('fake', 'This is a custom exception'),
-        ],
-    ]);
-
-    $generator = TextGenerator::make('throwable', client: $client);
-
-    $generator->prompt('This is just a fake prompt');
-})->throws('This is a custom exception');
+    expect('Who are you?')
+        ->generateTextEqual("I'm a fake AI provider")
+    ->and('How old is the planet earth?')
+        ->generateTextEqual('The earth is 4.543 billion years');
+});

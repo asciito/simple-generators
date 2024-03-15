@@ -23,7 +23,21 @@ uses(\Asciito\Tests\TestCase::class)->in('Feature');
 | to assert different things. Of course, you may extend the Expectation API at any time.
 |
 */
+expect()->extend('generateImage', function () {
+    $generator = Asciito\SimpleGenerators\Factory::make('image', ['api' => 'this-is-a-fake-api']);
 
+    $response = $generator->prompt($this->value);
+
+    return expect($response)->toBeString()->not()->toBeEmpty()->toBeUrl();
+});
+
+expect()->extend('generateTextEqual', function (string $equal) {
+    $generator = Asciito\SimpleGenerators\Factory::make('text', ['api' => 'this-is-a-fake-api']);
+
+    $response = $generator->prompt($this->value);
+
+    return expect($response)->toBeString()->not()->toBeEmpty()->toBe($equal);
+});
 /*
 |--------------------------------------------------------------------------
 | Functions
@@ -34,3 +48,10 @@ uses(\Asciito\Tests\TestCase::class)->in('Feature');
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+
+function testPrompt(string $prompt, string $type)
+{
+    return expect($response)
+        ->toBeString()
+        ->not()->toBeEmpty();
+}
