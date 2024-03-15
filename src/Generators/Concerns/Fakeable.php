@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace Asciito\SimpleGenerators\Generators\Concerns;
 
 use Asciito\SimpleGenerators\Generators\Contracts\Generator;
+use Asciito\SimpleGenerators\Providers\Contracts\Client;
 
 trait Fakeable
 {
     public static function fake(array $responses = []): Generator
     {
-        $instance = new class ([]) implements Generator {
+        $instance = new class () implements Generator {
             protected array $responses = [];
 
-            public function __construct(protected array $options)
+            public function __construct(Client|null $client = null)
             {
                 //
             }
@@ -31,6 +32,11 @@ trait Fakeable
             protected function getResponse(): string
             {
                 return array_pop($this->responses);
+            }
+
+            public function setClient(Client $client): void
+            {
+                //
             }
         };
 

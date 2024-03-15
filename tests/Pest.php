@@ -24,7 +24,7 @@ uses(\Asciito\Tests\TestCase::class)->in('Feature');
 |
 */
 expect()->extend('generateImage', function () {
-    $generator = Asciito\SimpleGenerators\Factory::make('image', ['api' => 'this-is-a-fake-api']);
+    $generator = Asciito\SimpleGenerators\Factory::image();
 
     $response = $generator->prompt($this->value);
 
@@ -32,7 +32,7 @@ expect()->extend('generateImage', function () {
 });
 
 expect()->extend('generateTextEqual', function (string $equal) {
-    $generator = Asciito\SimpleGenerators\Factory::make('text', ['api' => 'this-is-a-fake-api']);
+    $generator = Asciito\SimpleGenerators\Factory::text();
 
     $response = $generator->prompt($this->value);
 
