@@ -49,9 +49,3 @@ expect()->extend('generateTextEqual', function (string $equal) {
 |
 */
 
-function testPrompt(string $prompt, string $type)
-{
-    return expect($response)
-        ->toBeString()
-        ->not()->toBeEmpty();
-}
